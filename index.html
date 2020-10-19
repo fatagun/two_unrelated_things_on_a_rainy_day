@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title></title>
+		<title>Two unrelated stuff</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/moon.css">
@@ -43,18 +43,16 @@
 					<ul>
 						<li>Use arrow keys to browse the slides</li>
 					</ul>
-				</section>
- 				
- 				<section>
- 					<h2>Data modelling in NoSQL</h2>
- 				</section>
+				</section> 
 
 				<section>
 					<section>
-						<h4>Data type and storage</h4>
-						<p>
+						<h3>Data type and storage</h3>
+					</section>
+					<section>
+						<small>
 							Data is organized in tables and represented in rows and columns. Data types are usually string, int, float, datetime etc. It is not possible to store complex types such as arrays, hash tables and complex objects. That is called <em>Impedence mismatch</em>
-						</p>
+						</small>
 					</section>
 					
 					<section>
@@ -66,9 +64,9 @@
 					</section>
 
 					<section>
-						<p>
+						<small>
 							On the other hand, <strong>key value or document stores</strong> can both store simple types and complex types in JSON format. The schema in key/value and document stores is implicit and unenforced.
-						</p>
+						</small>
 					</section>
 
 					<section>
@@ -76,11 +74,11 @@
 					</section>
 
 					<section>
-						<p>
+						<small>
 							Imagine a garage as storage; <br/>
 							With relational approach you break the car into parts and store them in the shelves. <br/>
 							With document oriented approach, you have to fit the car the way it is. 
-						</p>
+						</small>
 					</section>
 
 					<section>
@@ -89,57 +87,61 @@
 
 					<section>
 						<h4>Normalization</h4>
-						<p>
+						<small>
 							We have always focused on normalizing our operational data model (not analytical) to reduce redundancy. <br />
 							Question: What are the levels of normalization?
-						</p>
+						</small>
 					</section>
 
 					<section>
 						<h4>Impedence mismatch</h4>
-						<p>
+						<small>
 							Programming languages object model do not correnpond to relational data stores data model. That is called impedence mismatch. We use ORMs to deal with it, which comes with complexity and overhead. However, it provides natural way of working with databases. 
-						</p>
+						</small>
 					</section>
 
 					<section>
 						<h4>Schema free</h4>
-						<p>
+						<small>
 							NoSQL and columnar databases allows schema free development which in the beginning is acceptable and gives a sense of rapid development practice. <br/>
 							However, schema free approach can introduce problems with data shapes, application errors and unexpected results. Thus, I highly recommend having a schema. 
-						</p>
+						</small>
 					</section>
 					 
 				</section>
 
+				<section>
+				 		<section>
+					 		<h3>Data modelling</h3>
+					 	</section>
+					 	<section>
+					 		<small>
+					 			Questions to be considered during data modelling;
+					 			- How is data going to be persisted? <br />
+					 			- How are you going to retrieve or query the data? <br />
+					 			- Is you application write or read bound ? <br />
+					 		</small>
+					 	</section>
+				</section>
+
 				 <section>
 				 	<section>
-				 		<h4>Data modelling</h4>
-				 		<p>
-				 			Questions to be considered during data modelling;
-				 			- How is data going to be persisted? <br />
-				 			- How are you going to retrieve or query the data? <br />
-				 			- Is you application write or read bound ? <br />
-				 		</p>
-				 	</section>
-
-				 	<section>
-				 		<h4>Key patterns</h4>
-				 		<p>
-				 		    </strong>We start by defining unique keys which we call <strong>predictable keys</strong> (that we can query easily). 
-				 		</p>
+				 		<h3>Key patterns</h3>
 				 	</section>
 
 				 	<section>
 				 		<h4>Predictable keys</h4>
-				 		<p>
+
+				 		<small>
+				 		    </strong>We start by defining unique keys which we call <strong>predictable keys</strong> (that we can query easily). <br />
+				 		 
 				 		    <em>-Users:</em><br/>
 							user::me@firatatagun.com -&gt; User data as value
 							user::foo@bar.com -&gt; User data as value
 							<br/> <br />
 							<em>-Products</em> <br />
 							product::12345 -&gt; Product data as value
-				 		</p>
+				 		</small>
 				 	</section>
 
 				 	<section>
@@ -248,7 +250,7 @@
 
 				 <section>
 				 	<section>
-				 		<h4>To embed or to reference?</h4>
+				 		<h3>To embed or to reference?</h3>
 				 		<p class="pcenter">That is the question.</p>
 				 	</section>
 
@@ -331,7 +333,7 @@
 
 				<section>
 					<section>
-						<h2>Specification pattern</h2>
+						<h3>Specification pattern</h3>
 					</section>
 
 					<section>
