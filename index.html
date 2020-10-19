@@ -250,6 +250,35 @@
 
 				 <section>
 				 	<section>
+				 		<h3>Time based pattern</h3>
+				 	</section>
+
+				 	<section>
+				 		<small>
+				 			The most common access patterns are: <br />
+				 			- Show me the most recent <br />
+				 			- Show me the data for period between X and Y <br />
+				 		</small>
+				 	</section>
+
+				 	<section>
+				 		<small>
+				 			Key : user::1001::trx::2020-10-20 <br />
+				 			Value : { id : "user:1001", trx: [ {amount: 10, currency: "usd" } ] }
+				 		</small>
+				 	</section>
+
+				 	<section>
+				 		<small>
+				 			To retrieve data: <br />
+
+				 			query("user:1001:trx::2020-10-20") -> returns transactions. 
+				 		</small>
+				 	</section>
+				 </section>
+
+				 <section>
+				 	<section>
 				 		<h3>To embed or to reference?</h3>
 				 		<p class="pcenter">That is the question.</p>
 				 	</section>
