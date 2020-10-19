@@ -1,0 +1,363 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title></title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style type="text/css">
+			p { text-align: left; }
+			small {text-align: left;}
+ 			img { border:none;}
+ 			.pcenter {text-align:  center;}
+ 			.gitimage { height: 60px; }
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides"> 
+				<section>
+					<h2>Two unrelated concepts on a rainy day</h2>
+
+					<p class="pcenter"><small>firat atagun</small> </p>
+					
+				</section>
+				<section>
+					<h5>How to navigate</h5>
+
+					<ul>
+						<li>Use arrow keys to browse the slides</li>
+					</ul>
+				</section>
+ 
+				<section>
+					<section>
+						<h4>Data type and storage</h4>
+						<p>
+							Data is organized in tables and represented in rows and columns. Data types are usually string, int, float, datetime etc. It is not possible to store complex types such as arrays, hash tables and complex objects. That is called <em>Impedence mismatch</em>
+						</p>
+					</section>
+					
+					<section>
+						<img src="images/relational_data.png" />
+					</section>
+					
+					<section>
+						<img src="images/er.gif" />
+					</section>
+
+					<section>
+						<p>
+							On the other hand, <strong>key value or document stores</strong> can both store simple types and complex types in JSON format. The schema in key/value and document stores is implicit and unenforced.
+						</p>
+					</section>
+
+					<section>
+						<img src="images/json.png" />
+					</section>
+
+					<section>
+						<p>
+							Imagine a garage as storage; <br/>
+							With relational approach you break the car into parts and store them in the shelves. <br/>
+							With document oriented approach, you have to fit the car the way it is. 
+						</p>
+					</section>
+
+					<section>
+						<img src="images/garage.png" />
+					</section>
+
+					<section>
+						<h4>Normalization</h4>
+						<p>
+							We have always focused on normalizing our operational data model (not analytical) to reduce redundancy. <br />
+							Question: What are the levels of normalization?
+						</p>
+					</section>
+
+					<section>
+						<h4>Impedence mismatch</h4>
+						<p>
+							Programming languages object model do not correnpond to relational data stores data model. That is called impedence mismatch. We use ORMs to deal with it, which comes with complexity and overhead. However, it provides natural way of working with databases. 
+						</p>
+					</section>
+
+					<section>
+						<h4>Schema free</h4>
+						<p>
+							NoSQL and columnar databases allows schema free development which in the beginning is acceptable and gives a sense of rapid development practice. <br/>
+							However, schema free approach can introduce problems with data shapes, application errors and unexpected results. Thus, I highly recommend having a schema. 
+						</p>
+					</section>
+					 
+				</section>
+
+				 <section>
+				 	<section>
+				 		<h4>Data modelling</h4>
+				 		<p>
+				 			Questions to be considered during data modelling;
+				 			- How is data going to be persisted? <br />
+				 			- How are you going to retrieve or query the data? <br />
+				 			- Is you application write or read bound ? <br />
+				 		</p>
+				 	</section>
+
+				 	<section>
+				 		<h4>Key patterns</h4>
+				 		<p>
+				 		    </strong>We start by defining unique keys which we call <strong>predictable keys</strong> (that we can query easily). 
+				 		</p>
+				 	</section>
+
+				 	<section>
+				 		<h4>Predictable keys</h4>
+				 		<p>
+				 		    <em>-Users:</em><br/>
+							user::me@firatatagun.com -&gt; User data as value
+							user::foo@bar.com -&gt; User data as value
+							<br/> <br />
+							<em>-Products</em> <br />
+							product::12345 -&gt; Product data as value
+				 		</p>
+				 	</section>
+
+				 	<section>
+				 		<h4>Unpredictable keys</h4>
+				 		<small>
+							</em>session::a5ab2863-db93-430e-8da3-feeb1998521f  -&gt; Session data
+							<br />
+							<strong>Unpredictable keys</strong> are queried with <strong>Map-Reduce</strong> functions in most key/value and NoSQL databases.
+				 		</small>
+				 	</section>
+				 </section>
+
+				 <section>
+				 	<section>
+				 		<h3>Counter Id Pattern</h3>
+				 	</section>
+				 	<section>
+				 		Almost all of the key/value and document stores provides very fast <strong>atomic counters</strong>. These atomic counters are safe for doing <strong>increment</strong> operations. 
+				 	</section>
+
+				 	<section>
+				 		<small>
+				 			<strong>Predictable</strong> <br />
+				 			incr(user:1000:order) -> return 1; <br />
+				 			store(user:1000:order:1, Order_data) <br />
+				 			query(user:1000:order:1) -> return Order_data <br />
+				 			<br />
+				 			incr(account:2000:transaction) -> returns 3001; <br />
+				 			store(account:2000:transaction:3001, Transaction_data) -> OK <br />
+				 			query(account:2000:transaction:3001) -> Transaction_data <br />
+				 		</small>
+				 	</section>
+
+				 	<section>
+				 		<small>
+				 			Additionally, we can get the current value of the counter anytime and hence we can predictably query users or iterate over them. <br />
+
+				 			This is a pretty easy and clever technique in my opinion. Since we only do increment, I know the size of the data, I can even run multi-get operations on it or do some paging.<br/>
+
+							This is similar to Identity column in RDBMS systems. Each time I want to store a document, increment the counter, get the counter value, create a predictable key and store the key/value.
+						</small	>
+				 	</section>
+
+				 	<section>
+				 		<p>
+				 			Multi-get operations are possible with this pattern. 
+
+				 			<em>
+				 				query(user:1000:orders) -> return 1, 2, 3; <br />
+				 				multiget("user:1000:order:1", "user:1000:order:2", "user:1000:order:3") -> return data; <br />
+				 			</em>
+				 		</p>
+				 	</section>
+
+				 	<section>
+				 		<p>
+				 			- Extremely high performance and very scalable <br />
+				 			- Retrieval cost is fixed! O(1) <br />
+				 			- Retrieval cost is stable. <br />
+				 		</p>
+				 	</section>
+				 </section>
+
+				 <section>
+				 	<section>
+				 		<h3>Lookup Pattern</h3>
+				 	</section>
+				 	<section>
+				 		<p>
+				 			Two step process. <br />
+				 			First Step: <br />
+				 			store("fatagun@gmail.com", {"id":"user:GUID"}) -> OK;
+
+				 			store("user:GUID:order:1", Order_data) -> OK; <br />
+
+				 			Second step: <br />
+			 				query("fatagun@gmail.com") -> returns {"id": "user:GUID"}; <br />
+
+			 				query("user:GUID:order:1") -> return Order_data; <br />
+			 				You can work with unpredictable keys with this approach easily. 
+				 		</p>
+				 	</section>
+
+				 	<section>
+				 		<small>
+				 			This makes it easy to retrieve documents without <strong>Map-Reduce</strong> operations. This pattern is quite useful for large datasets. <br /> Most of the data stores provide map-reduce operations with <strong>eventual consistency</strong> that use <strong>B trees on disk with log(n) complexity</strong>. <br /> However, lookup pattern provides <strong>immediate consistency</strong> with <strong>O(1), constant lookup time</strong>. Hence lookup pattern is very fast, scales very well and provides read your own writes along with consistent performance.
+				 			<br />
+				 		</small>
+				 	</section>
+				 	<section>
+				 		<small>
+				 			<strong>Pros of combining counter-id and lookup pattern:</strong> <br />
+							These are extremely fast binary operations.<br />
+							Linear performance. <br />
+							Enables several ways to find single document. <br />
+							Provides consistency, always consistent. <br />
+				 		</small>
+				 	</section>
+				 	<section>
+				 		<small>
+							<strong>Cons of combining counter-id and lookup pattern:</strong> <br />
+							Increases number of documents in the storage.
+				 		</small>
+				 	</section>
+				 </section>
+
+				 <section>
+				 	<section>
+				 		<h4>To embed or to reference?</h4>
+				 		<p class="pcenter">That is the question.</p>
+				 	</section>
+
+					 <section>
+					 	<h4>Pros with embedding:</h4>
+					 	<small>
+							Easy to retrieve document, you can get the document at once. Single read operation brings you back the document. Single write or update operation takes care of your insert or update.
+						</small>
+					 </section>
+
+					 <section>
+					 	<h4>Cons with embedding:</h4>
+					 	<small>
+							In most data stores there is a certain limit to document size. Moreover, bigger the document more RTT on network. <br />
+							<strong>Most key/value stores or document stores are designed and developed to store small chunk of documents.</strong> Storing large documents are usually a bad idea.<br />
+						</small>
+					 </section>
+
+					 <section>
+					 	Retrieving a large document can be a burden on network, even if you have gzip enabled. When you have multiple clients updating the same document then you might have versioning problems you need to take care of. You will have to implement optimistic or pessimistic locking.
+					 </section>
+					 <section>
+					 	At the same time, embedding can be performant due to <a href="https://en.wikipedia.org/wiki/Locality_of_reference">locality reference</a>.
+					 </section>
+
+					 <section>
+					 	<h4>When is it good to embed:</h4> 
+	• There are contains relationships between entities.<br />
+	• There are one-to-few relationships between entities.<br />
+	• There is embedded data that changes infrequently.<br />
+	• There is embedded data won't grow without bound.<br />
+	• There is embedded data that is integral to data in a document.<br />
+					 </section>
+
+					 <section>
+					 	<p>
+					 		You can use both embedding and referencing. 
+					 	</p>
+					 </section>
+					 <section>
+					 	Sometimes we need to embed, sometimes we need to reference. When do we embed and when do we reference? This is the critical decision for efficient modelling. There are some signals for selecting embedding or referencing or both. 
+					 </section>
+
+					 <section>
+					 	<h4>Relationships</h4>
+					 </section>
+
+					 <section>
+					 	<h4>1:1 (one to one) relationship</h4>
+					 	<small>Usually better for embedding. Also, if there is a 1:Few relationship, it is also acceptable to embed. For example a blog post document with tags or categories. So we need to care about relationships and dependencies. Embedding leads to better performance because of RTT (round trip times) to databases.
+					 	</small>
+					 </section>
+
+					 <section>
+					 	<h4>1:many (one to many) relationship</h4> 
+					 	is good for referencing. For example: blog post with comments document. A blog post can have hundreds of comments with different sizes. There is no bound to referenced data. Instead of embedding, referencing is more efficient in this case. You can also have <strong>race conditions</strong> if you prefer to use embedding in this case.
+					 </section>
+
+					 <section>
+					 	<h4>M:m (Many to many relationship)</h4> 
+					 	is good for referencing as well.
+					 </section>
+
+					 <section>
+					 	Data volatility is important while choosing embedding vs referencing. How often does the data change? If the data doesn't change so often, <strong>it is better to embed</strong> rather than referencing. However, if there are a lot of operations on particular documents, it is usually better to reference. So, if the volatility is low, embedding is OK, if volatility is high referencing is better. With high volatility you can have race conditions.
+					 </section>
+
+					 <section>
+					 	If a document is used by many clients, it is better to reference rather than embedding. <strong>Referencing provides better write performance</strong>. Because you have smaller documents to write. However, it causes performance hit for <strong>READ operations due to multiple Round trip times</strong>.
+					 </section>
+
+					 <section>
+					 	Normalizing data may save some space however,  storage is cheap today, also  requires single read and RTT. Normalizing data doesn't align with classes/objects , object model. Referencing typically provides faster write speed. Denormalized aligns with classes/objects, however, requires updates in multiple places. Typically provides faster read speed, since you get the document at once.
+					 </section>
+
+					 <section>
+					 	Clearly there are trade offs for referencing and embedding. It is up to you to decide which one to use based on your data model and access patterns.
+					 </section>
+				</section>
+
+				<section data-background="#2E86C1">
+					<h3>Thank you for your attention.</h3>		
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+ 
+		</script>
+	</body>
+</html>
