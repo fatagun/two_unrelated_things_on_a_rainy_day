@@ -221,14 +221,14 @@
 				 		<p>
 				 			Two step process. <br />
 				 			First Step: <br />
-				 			store("fatagun@gmail.com", {"id":"user:GUID"}) -> OK;
+				 			store("fatagun@gmail.com", "25a90eef-34c5-4fe6-afb9-69a660d1696c") -> OK;
 
-				 			store("user:GUID:order:1", Order_data) -> OK; <br />
+				 			store("user:25a90eef-34c5-4fe6-afb9-69a660d1696c:order:1", order_data) -> OK; <br />
 
 				 			Second step: <br />
-			 				query("fatagun@gmail.com") -> returns {"id": "user:GUID"}; <br />
+			 				query("fatagun@gmail.com") -> returns "25a90eef-34c5-4fe6-afb9-69a660d1696c"}; <br />
 
-			 				query("user:GUID:order:1") -> return Order_data; <br />
+			 				query("user:25a90eef-34c5-4fe6-afb9-69a660d1696c:order:1") -> return order_data; <br />
 			 				You can work with unpredictable keys with this approach easily. 
 				 		</p>
 				 	</section>
@@ -271,8 +271,8 @@
 
 				 	<section>
 				 		<small>
-				 			Key : user::1001::trx::2020-10-20 <br />
-				 			Value : { id : "user:1001", trx: [ {amount: 10, currency: "usd" } ] }
+				 			Key -> user::1001::trx::2020-10-20 <br />
+				 			Value -> { id : "user:1001", trx: [ {amount: 10, currency: "usd" } ] }
 				 		</small>
 				 	</section>
 
