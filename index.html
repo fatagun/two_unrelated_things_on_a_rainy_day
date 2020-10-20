@@ -49,7 +49,7 @@
 					<h4>Agenda</h4>
 					<p>
 						<a href="#/3">NoSQL Data Modelling</a> <br />
-						<a href="#/10">Specification Patter</a>
+						<a href="#/10">Specification Pattern</a>
 					</p>
 				</section>
 
@@ -127,7 +127,7 @@
 					 			Questions to be considered during data modelling; <br />
 					 			- How is data going to be persisted? <br />
 					 			- How are you going to retrieve or query the data? <br />
-					 			- Is you application write or read bound ? <br />
+					 			- Is your application write or read bound ? <br />
 					 		</small>
 					 	</section>
 				</section>
@@ -144,18 +144,18 @@
 				 		    </strong>We start by defining unique keys which we call <strong>predictable keys</strong> (that we can query easily). <br />
 				 		 
 				 		    <em>-Users:</em><br/>
-							user::me@firatatagun.com -&gt; User data as value
-							user::foo@bar.com -&gt; User data as value
+							store(user::me@firatatagun.com, User data) -> OK <br />
+							store(user::foo@bar.com, User data) -> OK <br />
 							<br/> <br />
 							<em>-Products</em> <br />
-							product::12345 -&gt; Product data as value
+							store(product::3001, Product data) -> OK
 				 		</small>
 				 	</section>
 
 				 	<section>
 				 		<h4>Unpredictable keys</h4>
 				 		<small>
-							</em>session::a5ab2863-db93-430e-8da3-feeb1998521f  -&gt; Session data
+							store(session::a5ab2863-db93-430e-8da3-feeb1998521f, Session data) -> OK;
 							<br />
 							<strong>Unpredictable keys</strong> are queried with <strong>Map-Reduce</strong> functions in most key/value and NoSQL databases.
 				 		</small>
