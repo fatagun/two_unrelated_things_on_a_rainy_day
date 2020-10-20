@@ -59,7 +59,7 @@
 					</section>
 					<section>
 						<small>
-							Data is organized in tables and represented in rows and columns. Data types are usually string, int, float, datetime etc. It is not possible to store complex types such as arrays, hash tables and complex objects. That is called <em>Impedence mismatch</em>
+							Data is organized in tables and represented in rows and columns. Data types are usually string, int, float, datetime etc.
 						</small>
 					</section>
 					
@@ -302,7 +302,7 @@
 					 	<h4>Cons with embedding:</h4>
 					 	<small>
 							In most data stores there is a certain limit to document size. Moreover, bigger the document more RTT on network. <br />
-							<strong>Most key/value stores or document stores are designed and developed to store small chunk of documents.</strong> Storing large documents are usually a bad idea.<br />
+							<strong>Most key/value stores or document stores are designed to store small chunk of documents.</strong> Storing large documents are usually a bad idea.<br />
 						</small>
 					 </section>
 
@@ -315,7 +315,6 @@
 
 					 <section>
 					 	<h4>When is it good to embed:</h4> 
-	• There are contains relationships between entities.<br />
 	• There are one-to-few relationships between entities.<br />
 	• There is embedded data that changes infrequently.<br />
 	• There is embedded data won't grow without bound.<br />
@@ -336,23 +335,23 @@
 					 </section>
 
 					 <section>
-					 	<h4>1:1 (one to one) relationship</h4>
-					 	<small>Usually better for embedding. Also, if there is a 1:Few relationship, it is also acceptable to embed. For example a blog post document with tags or categories. So we need to care about relationships and dependencies. Embedding leads to better performance because of RTT (round trip times) to databases.
+					 	<h4>1:1 (one to one)</h4>
+					 	<small>Usually better for embedding. Also, if there is a 1:Few relationship, it is also acceptable to embed. For example a blog post document with tags or categories.
 					 	</small>
 					 </section>
 
 					 <section>
-					 	<h4>1:many (one to many) relationship</h4> 
-					 	is good for referencing. For example: blog post with comments document. A blog post can have hundreds of comments with different sizes. There is no bound to referenced data. Instead of embedding, referencing is more efficient in this case. You can also have <strong>race conditions</strong> if you prefer to use embedding in this case.
+					 	<h4>1:many (one to many)</h4> 
+					 	is good for referencing. For example: blog post with comments document. A blog post can have hundreds of comments with different sizes. There is no bound to referenced data. Instead of embedding, referencing is more efficient in this case.
 					 </section>
 
 					 <section>
-					 	<h4>M:m (Many to many relationship)</h4> 
+					 	<h4>M:M (Many to many)</h4> 
 					 	is good for referencing as well.
 					 </section>
 
 					 <section>
-					 	Data volatility is important while choosing embedding vs referencing. How often does the data change? If the data doesn't change so often, <strong>it is better to embed</strong> rather than referencing. However, if there are a lot of operations on particular documents, it is usually better to reference. So, if the volatility is low, embedding is OK, if volatility is high referencing is better. With high volatility you can have race conditions.
+					 	Data volatility is important while choosing embedding vs referencing. How often does the data change? If the data doesn't change so often, <strong>it is better to embed</strong> rather than referencing. However, if there are a lot of operations on particular documents, it is usually better to reference. So, if the volatility is low, embedding is OK, if volatility is high referencing is better.
 					 </section>
 
 					 <section>
@@ -360,7 +359,7 @@
 					 </section>
 
 					 <section>
-					 	Normalizing data may save some space however,  storage is cheap today, also  requires single read and RTT. Normalizing data doesn't align with classes/objects , object model. Referencing typically provides faster write speed. Denormalized aligns with classes/objects, however, requires updates in multiple places. Typically provides faster read speed, since you get the document at once.
+					 	Normalizing data may save some space also needs a single read. Referencing typically provides faster write speed.
 					 </section>
 
 					 <section>
